@@ -195,7 +195,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # keybinding in fancy rofi (automated):
-bindsym F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
+# bindsym F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
 # alternative
 # keybinding list in editor:
 # bindsym $mod+F1 exec --no-startup-id xed ~/.config/i3/keybindings
@@ -232,10 +232,11 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
-
 # split in vertical orientation
-bindsym $mod+v split v
+# split in vertical toggle
+bindsym $mod+h split h;exec notify-send 'tile horizontally'
+bindsym $mod+v split v;exec notify-send 'tile vertically'
+bindsym $mod+q split toggle;exec notify-send 'tile toggle'
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -338,8 +339,11 @@ set $ws10 "10"
 # assign [class="Xfce4-terminal"] $ws1
 # assign [class="(?i)firefox"] $ws2
 # assign [class="Thunar"] $ws3
-# assign [class="thunderbird"] $ws4
-# assign [class="TelegramDesktop"] $ws5
+assign [class="TelegramDesktop"] $ws5
+assign [class="Google-chrome"] $ws2
+assign [class="Google-chrome"] $ws2
+assign [class="hiddify"] $ws9
+assign [class="nekoray"] $ws9
 
 # automatic set focus new window if it opens on another workspace than the current:
 # for_window [class=Xfce4-terminal] focus
@@ -410,7 +414,7 @@ exec --no-startup-id ~/.screenlayout/monitor.sh
 
 # set wallpaper
 # exec --no-startup-id sleep 2 && nitrogen --restore
-exec --no-startup-id sleep 1 && feh --bg-fill /usr/share/endeavouros/backgrounds/endeavouros-wallpaper.png
+# exec --no-startup-id sleep 1 && feh --bg-fill /usr/share/endeavouros/backgrounds/background2.jpg
 
 # set powersavings for display:
 # exec --no-startup-id xset s 480 dpms 600 600 600
@@ -421,7 +425,7 @@ exec --no-startup-id sleep 1 && feh --bg-fill /usr/share/endeavouros/backgrounds
 # use xautolock to use autosuspend rules for mobile devices
 # https://wiki.archlinux.org/title/Session_lock#xautolock
 exec --no-startup-id xautolock -time 60 -locker "systemctl suspend"
-exec --no-startup-id xautolock -time 10 -locker "~/.config/i3/scripts/blur-lock"
+exec --no-startup-id xautolock -time 5 -locker "~/.config/i3/scripts/blur-lock"
 
 
 # xscreensaver
@@ -525,10 +529,10 @@ bar {
 		font pango: Noto Sans Regular 10
 		status_command i3blocks -c ~/.config/i3/i3blocks.conf
 	    	position top
-#	    	i3bar_command i3bar --transparency
+	    	# i3bar_command i3bar --transparency
 # it could be that you have no primary display set: set one (xrandr --output <output> --primary)
 # reference: https://i3wm.org/docs/userguide.html#_tray_output
-		    #tray_output primary
+		    tray_output primary
 		    tray_padding 0
 
 # When strip_workspace_numbers is set to yes,
@@ -548,7 +552,7 @@ strip_workspace_numbers yes
 # 		urgent_workspace	$urgentred	    	$urgentred	$white		$purple
 # 	}
 	colors {
-        background #222D31
+        background #222D31ff
         statusline #F9FAF9
         separator  #454947
 
@@ -618,6 +622,5 @@ bindsym $mod+t exec --no-startup-id rofi -show window \
 #bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard \
 #		-config ~/.config/rofi/rofidmenu.rasi
 
-
-# bindsym XF86MonBrightnessUp exec brightnessctl -c backlight set +5%
-# bindsym XF86MonBrightnessDown exec brightnessctl -c backlight set 5%-
+bindsym Ctrl+F12 exec --no-startup-id bash -c  "nohup nekoray & nohup google-chrome-stable & nohup telegram-desktop"
+exec --no-startup-id nitrogen --restore
