@@ -77,6 +77,10 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
+
+
+
 plugins=(
     git
     docker
@@ -86,6 +90,8 @@ plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
     zsh-z
+    sudo
+    # line-drawer
     )
 
 source $ZSH/oh-my-zsh.sh
@@ -175,11 +181,16 @@ alias fuckoff="shutdown -h now"
 alias idiot="shutdown -r now"
 alias pp="terminal-parrot"
 alias clr="clear"
-alias dfoff="docker rm \$(docker stop \$(docker container ls -qa))"source ~/powerlevel10k/powerlevel10k.zsh-theme
-# alias nekoray="nohup /home/lou2013/Downloads/nekoray/nekoray > /dev/null 2>&1 &"
-alias nekoray="nohup /home/lou2013/Downloads/nekoray/launcher"
+alias dfoff="docker rm \$(docker stop \$(docker container ls -qa))"
+# alias nekoray="nohup /home/lou2013/Downloads/nekoray > /dev/null 2>&1 &"
+# alias nekoray="/home/lou2013/Downloads/nekoray/launcher"
+alias gsi='git submodule foreach "pnpm i"'
+alias gsu="git submodule update --init --recursive"
+alias gsp="git submodule foreach \"git pull\""
 alias gitkey="echo $GITKEY"
-
+alias getcls="xprop | grep WM_CLASS | awk '{ print $4 }'"
+alias shecane='nmcli device mod eno1 ipv4.dns "178.22.122.100 185.51.200.2"'
+alias shecand='nmcli device mod eno1 ipv4.dns "127.0.0.1 1.1.1.1 8.8.8.8"'
 # pnpm
 export PNPM_HOME="/home/lou2013/.local/share/pnpm"
 case ":$PATH:" in
@@ -187,16 +198,33 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 export PATH=$PATH:~/.dotnet/tools
+export PATH=$PATH:~/go/bin
 # pnpm end# Created by fodev.org
+
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
+
+autoload -Uz vcs_info
+precmd() { vcs_info }
+
+zstyle ':vcs_info:git:*' formats '%b '
+
+
+setopt PROMPT_SUBST
+PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
+# anime-colorscripts -r source /home/lou2013/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+export BROWSER='/usr/bin/google-chrome-stable'
+# Created by fodev.org
 function fod(){
     case $1 in
         "--enable" | "-e")
-            export http_proxy=http://fodev.org:8118/
-            export https_proxy=http://fodev.org:8118/
+            export http_proxy="http://fodev.org:8118/"
+            export https_proxy="http://fodev.org:8118/"
             export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
-            export HTTP_PROXY=http://fodev.org:8118/
-            export HTTPS_PROXY=http://fodev.org:8118/
-            \ NO_PROXY="localhost,127.0.0.1,localaddress,.localdomain.com"
+            export HTTP_PROXY="http://fodev.org:8118/"
+            export HTTPS_PROXY="http://fodev.org:8118/"
+            export NO_PROXY="localhost,127.0.0.1,localaddress,.localdomain.com"
             echo "enable fod proxy !"
         ;;
         "--disable" | "-d")
@@ -226,17 +254,4 @@ function fod(){
     esac
 }
 
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
-
-autoload -Uz vcs_info
-precmd() { vcs_info }
-
-zstyle ':vcs_info:git:*' formats '%b '
-
-setopt PROMPT_SUBST
-PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
-# anime-colorscripts -r source /home/lou2013/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /home/lou2013/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-export BROWSER='/usr/bin/firefox'
