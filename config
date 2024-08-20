@@ -293,7 +293,6 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
 
 ## App shortcuts
-bindsym $mod+w exec --no-startup-id /usr/bin/firefox
 bindsym $mod+n exec --no-startup-id /usr/bin/thunar
 bindsym Print exec --no-startup-id scrot ~/%Y-%m-%d-%T-screenshot.png && notify-send "Screenshot saved to ~/$(date +"%Y-%m-%d-%T")-screenshot.png"
 
@@ -404,7 +403,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 # configure multiple keyboard layouts and hotkey to switch (Alt+CAPSLOCK in this example)
 #exec --no-startup-id setxkbmap -layout 'us,sk' -variant altgr-intl,qwerty -option 'grp:alt_caps_toggle'
-exec --no-startup-id "setxkbmap -model pc104 -layout us,ir -variant ,, -option grp:alt_shift_toggle"
+exec_always --no-startup-id "setxkbmap -model pc104 -layout us,ir -variant ,, -option grp:alt_shift_toggle"
 # start conky:
 #exec_always --no-startup-id conky
 
@@ -623,4 +622,6 @@ bindsym $mod+t exec --no-startup-id rofi -show window \
 #		-config ~/.config/rofi/rofidmenu.rasi
 
 bindsym Ctrl+F12 exec --no-startup-id bash -c  "nohup nekoray & nohup google-chrome-stable & nohup telegram-desktop"
-exec --no-startup-id nitrogen --restore
+
+# wallpaper
+# exec --no-startup-id nitrogen --restore

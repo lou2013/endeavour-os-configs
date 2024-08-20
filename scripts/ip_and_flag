@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+# Copyright (C) 2024 Your Name
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Get the IP address and country information
+IP=$(curl -s http://ip-api.com/json | jq -r .query)
+COUNTRY_CODE=$(curl -s http://ip-api.com/json | jq -r .countryCode | tr '[:upper:]' '[:lower:]')
+COUNTRY_NAME=$(curl -s http://ip-api.com/json | jq -r .country)
+
+# Associate country codes with flag emojis
+emoji() {
+    case $1 in
+        us) echo "🇺🇸";;  # United States
+        gb) echo "🇬🇧";;  # United Kingdom
+        fr) echo "🇫🇷";;  # France
+        de) echo "🇩🇪";;  # Germany
+        in) echo "🇮🇳";;  # India
+        jp) echo "🇯🇵";;  # Japan
+        ir) echo "🇮🇷";;  # Iran
+        cn) echo "🇨🇳";;  # China
+        ru) echo "🇷🇺";;  # Russia
+        br) echo "🇧🇷";;  # Brazil
+        ca) echo "🇨🇦";;  # Canada
+        au) echo "🇦🇺";;  # Australia
+        it) echo "🇮🇹";;  # Italy
+        es) echo "🇪🇸";;  # Spain
+        mx) echo "🇲🇽";;  # Mexico
+        sa) echo "🇸🇦";;  # Saudi Arabia
+        ae) echo "🇦🇪";;  # United Arab Emirates
+        za) echo "🇿🇦";;  # South Africa
+        kr) echo "🇰🇷";;  # South Korea
+        ar) echo "🇦🇷";;  # Argentina
+        tr) echo "🇹🇷";;  # Turkey
+        ng) echo "🇳🇬";;  # Nigeria
+        eg) echo "🇪🇬";;  # Egypt
+        id) echo "🇮🇩";;  # Indonesia
+        vn) echo "🇻🇳";;  # Vietnam
+        th) echo "🇹🇭";;  # Thailand
+        my) echo "🇲🇾";;  # Malaysia
+        ph) echo "🇵🇭";;  # Philippines
+        sg) echo "🇸🇬";;  # Singapore
+        hk) echo "🇭🇰";;  # Hong Kong
+        tw) echo "🇹🇼";;  # Taiwan
+        pl) echo "🇵🇱";;  # Poland
+        nl) echo "🇳🇱";;  # Netherlands
+        be) echo "🇧🇪";;  # Belgium
+        ch) echo "🇨🇭";;  # Switzerland
+        se) echo "🇸🇪";;  # Sweden
+        no) echo "🇳🇴";;  # Norway
+        dk) echo "🇩🇰";;  # Denmark
+        fi) echo "🇫🇮";;  # Finland
+        pt) echo "🇵🇹";;  # Portugal
+        gr) echo "🇬🇷";;  # Greece
+        at) echo "🇦🇹";;  # Austria
+        ie) echo "🇮🇪";;  # Ireland
+        il) echo "🇮🇱";;  # Israel
+        # Add more country codes and emojis here if needed
+        *) echo "🌍";;    # Default globe emoji for unknown codes
+    esac
+}
+
+# Display the IP with country flag and name
+echo "$IP $(emoji $COUNTRY_CODE) ($COUNTRY_NAME)"
