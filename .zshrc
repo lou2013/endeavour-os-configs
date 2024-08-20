@@ -191,6 +191,7 @@ alias gitkey="echo $GITKEY"
 alias getcls="xprop | grep WM_CLASS | awk '{ print $4 }'"
 alias shecane='nmcli device mod eno1 ipv4.dns "178.22.122.100 185.51.200.2"'
 alias shecand='nmcli device mod eno1 ipv4.dns "127.0.0.1 1.1.1.1 8.8.8.8"'
+alias gor='air run'
 # pnpm
 export PNPM_HOME="/home/lou2013/.local/share/pnpm"
 case ":$PATH:" in
@@ -254,4 +255,6 @@ function fod(){
     esac
 }
 
-
+# install nvm
+# source /usr/share/nvm/init-nvm.sh
+source <(fzf --zsh)
