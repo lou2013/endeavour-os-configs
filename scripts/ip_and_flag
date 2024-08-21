@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright (C) 2024 Your Name
+# Copyright (C) 2024 Iman moghadari
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@ IP=$(curl -s http://ip-api.com/json | jq -r .query)
 COUNTRY_CODE=$(curl -s http://ip-api.com/json | jq -r .countryCode | tr '[:upper:]' '[:lower:]')
 COUNTRY_NAME=$(curl -s http://ip-api.com/json | jq -r .country)
 
-# Associate country codes with flag emojis
 emoji() {
     case $1 in
         us) echo "🇺🇸";;  # United States
@@ -66,10 +65,8 @@ emoji() {
         at) echo "🇦🇹";;  # Austria
         ie) echo "🇮🇪";;  # Ireland
         il) echo "🇮🇱";;  # Israel
-        # Add more country codes and emojis here if needed
         *) echo "🌍";;    # Default globe emoji for unknown codes
     esac
 }
 
-# Display the IP with country flag and name
 echo "$IP $(emoji $COUNTRY_CODE) ($COUNTRY_NAME)"
