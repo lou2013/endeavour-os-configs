@@ -525,13 +525,14 @@ client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
 # Start i3bar to display a workspace bar
 # (plus the system information i3status finds out, if available)
 bar {
-		font pango: Noto Sans Regular 10
+		font pango:Noto Sans Regular, FontAwesome 10.5
 		status_command i3blocks -c ~/.config/i3/i3blocks.conf
 	    	position top
 	    	# i3bar_command i3bar --transparency
 # it could be that you have no primary display set: set one (xrandr --output <output> --primary)
 # reference: https://i3wm.org/docs/userguide.html#_tray_output
 		    tray_output primary
+            # height 25
 		    tray_padding 0
 
 # When strip_workspace_numbers is set to yes,
