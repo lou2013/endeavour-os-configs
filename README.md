@@ -110,4 +110,5 @@ This repository is licensed under the [GNU General Public License v3.0](https://
 
 ## Remember
 
-please remember when you are creating new script use chmod +x ./scripts/[scriptName] for i3blocks to be able to run it
+- **fonts:** install FontAwesome to handle icons.
+- **adding new scripts:** please remember when you are creating new script use chmod +x ./scripts/[scriptName] for i3blocks to be able to run it
