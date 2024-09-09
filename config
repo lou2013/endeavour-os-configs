@@ -294,7 +294,8 @@ bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
 
 ## App shortcuts
 bindsym $mod+n exec --no-startup-id /usr/bin/thunar
-bindsym Print exec --no-startup-id scrot ~/%Y-%m-%d-%T-screenshot.png && notify-send "Screenshot saved to ~/$(date +"%Y-%m-%d-%T")-screenshot.png"
+# bindsym Print exec --no-startup-id scrot ~/%Y-%m-%d-%T-screenshot.png && notify-send "Screenshot saved to ~/$(date +"%Y-%m-%d-%T")-screenshot.png"
+bindsym Print exec --no-startup-id flameshot
 
 # Power Profiles menu switcher (rofi)
 bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
@@ -623,6 +624,6 @@ bindsym $mod+t exec --no-startup-id rofi -show window \
 #		-config ~/.config/rofi/rofidmenu.rasi
 
 bindsym Ctrl+F12 exec --no-startup-id bash -c  "nohup nekoray & nohup google-chrome-stable & nohup telegram-desktop"
-
+bindsym Ctrl+F11 exec  google-chrome-stable --user-data-dir=$HOME/.config/google-chrome-proxied
 # wallpaper
 # exec --no-startup-id nitrogen --restore
