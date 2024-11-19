@@ -643,3 +643,5 @@ bindsym Ctrl+F11 exec  google-chrome-stable --user-data-dir=$HOME/.config/google
 # exec --no-startup-id nitrogen --restore
 # picom
 exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
+for_window [class="^copyq$"] floating enable, resize set 800 600, move position center
+for_window [class="^pavucontrol$"] floating enable, resize set 800 600, move position center
