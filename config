@@ -187,7 +187,6 @@ bindsym $mod+r mode "resize"
 ######################################
 
 # start a terminal
-# bindsym $mod+Return exec --no-startup-id konsole
 bindsym $mod+Return exec --no-startup-id xfce4-terminal
 
 # kill focused window
@@ -211,12 +210,19 @@ bindsym $mod+Shift+r restart
 # keybinding in fancy rofi (automated):
 # bindsym F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
 # alternative
-# keybinding list in editor:
+# keybinding list in editor:*
 # bindsym $mod+F1 exec --no-startup-id xed ~/.config/i3/keybindings
 
 # Backlight control
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight +10 && notify-send "Brightness - $(xbacklight -get | cut -d '.' -f 1)%"
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -10 && notify-send "Brightness - $(xbacklight -get | cut -d '.' -f 1)%"
+bindsym XF86MonBrightnessUp exec --no-startup-id  ~/.config/i3/scripts/volume_brightness.sh brightness_up
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_down
+# Backlight setting using dunst osc
+bindsym 0xffab, exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_up
+bindsym 0xffad, exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_down
+
+# Backlight control
+# bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight +10 && notify-send "Brightness - $(xbacklight -get | cut -d '.' -f 1)%"
+# bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -10 && notify-send "Brightness - $(xbacklight -get | cut -d '.' -f 1)%"
 # Backlight setting using dunst osc
 # bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_up
 # bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_down
@@ -317,9 +323,9 @@ bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
 
 
 bindsym Ctrl+F1 exec google-chrome-stable
-bindsym Ctrl+F3 exec robo3t
+# bindsym Ctrl+F3 exec robo3t
 bindsym Ctrl+F4 exec mongodb-compass
-bindsym Ctrl+F5 exec telegram-desktop
+bindsym Ctrl+F5 exec Telegram
 bindsym Ctrl+F6 exec insomnia
 # bindsym Ctrl+F7 exec postman
 
@@ -427,7 +433,7 @@ exec_always --no-startup-id "setxkbmap -model pc104 -layout us,ir -variant ,, -o
 exec --no-startup-id ~/.screenlayout/monitor.sh
 
 # set wallpaper
-# exec --no-startup-id sleep 2 && nitrogen --restore
+exec --no-startup-id sleep 2 && nitrogen --restore
 # exec --no-startup-id sleep 1 && feh --bg-fill /usr/share/endeavouros/backgrounds/background2.jpg
 
 # set powersavings for display:
@@ -540,7 +546,7 @@ client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
 # Start i3bar to display a workspace bar
 # (plus the system information i3status finds out, if available)
 bar {
-		font pango:Noto Sans Regular, FontAwesome 10.3
+		font pango:Noto Sans Regular, FontAwesome 8.3
 		status_command i3blocks -c ~/.config/i3/i3blocks.conf
 	    	position top
 	    	# i3bar_command i3bar --transparency
@@ -638,10 +644,12 @@ bindsym $mod+t exec --no-startup-id rofi -show window \
 #		-config ~/.config/rofi/rofidmenu.rasi
 
 bindsym Ctrl+F12 exec --no-startup-id bash -c  "nohup nekoray & nohup google-chrome-stable & nohup telegram-desktop"
-bindsym Ctrl+F11 exec  google-chrome-stable --user-data-dir=$HOME/.config/google-chrome-proxied
+# bindsym Ctrl+F11 exec  google-chrome-stable --user-data-dir=$HOME/.config/google-chrome-proxied
 # wallpaper
 # exec --no-startup-id nitrogen --restore
 # picom
-exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
+# exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
 for_window [class="^copyq$"] floating enable, resize set 800 600, move position center
+for_window [class="^Standard Notes$"] floating enable, resize set 800 600, move position center
 for_window [class="^pavucontrol$"] floating enable, resize set 800 600, move position center
+exec --no-startup-id copyq
