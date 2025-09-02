@@ -16,7 +16,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
+GITKEY=""
+WINEPREFIX="~/.wine"
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -85,12 +86,13 @@ plugins=(
     git
     docker
     docker-compose
-    history-substring-search
+    zsh-history-substring-search
     colored-man-pages
     zsh-autosuggestions
     zsh-syntax-highlighting
     zsh-z
     sudo
+    fzf
     # line-drawer
     )
 
@@ -127,15 +129,36 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-function cde() {
+function cde(){
     echo "openning Desktop/projects/$1 with vsCode"
     if [ "$1" != "" ]
     then
-  /bin/code ~/Desktop/projects/"$1"
+    /usr/bin/prime-run code ~/Desktop/projects/"$1"
     else
-        /bin/code ~/Desktop/projects/
+    /usr/bin/prime-run ~/Desktop/projects/
     fi
 }
+
+# Enable Tab Completion
+_cde_completion() {
+  local base_dir="$HOME/Desktop/projects"
+  local word="${words[2]}"  # The partially typed input
+  local candidates
+
+  # Get all directories
+  candidates=($(ls -d "$base_dir"/*/ | xargs -n 1 basename))
+
+  # If user has typed something, filter results
+  if [[ -n "$word" ]]; then
+    candidates=($(printf "%s\n" "${candidates[@]}" | grep -i "$word"))
+  fi
+
+  # Provide completion suggestions
+  compadd -o "${candidates[@]}"
+}
+
+compdef _cde_completion cde
+
 function dod() {
   echo "$1"
   if [ "$1" != "" ]
@@ -174,15 +197,13 @@ function giut() {
         git checkout master
     fi
 }
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 alias fuckoff="shutdown -h now"
 alias idiot="shutdown -r now"
 alias pp="terminal-parrot"
 alias clr="clear"
 alias dfoff="docker rm \$(docker stop \$(docker container ls -qa))"
-# alias nekoray="nohup /home/lou2013/Downloads/nekoray > /dev/null 2>&1 &"
+alias nekoray="nohup /home/lou2013/tools/nekoray/launcher > /dev/null 2>&1 &"
 # alias nekoray="/home/lou2013/Downloads/nekoray/launcher"
 alias gsi='git submodule foreach "pnpm i"'
 alias gsu="git submodule update --init --recursive"
@@ -254,7 +275,19 @@ function fod(){
         ;;
     esac
 }
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Install pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv >/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+# eval "$(pyenv init --path)"
+# eval "$(pyenv virtualenv-init -)"
 
-# install nvm
-# source /usr/share/nvm/init-nvm.sh
-source <(fzf --zsh)
+# Other configurations
+source /home/lou2013/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/nvm/init-nvm.sh
