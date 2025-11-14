@@ -128,14 +128,24 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+alias idea="nohup ~/idea-prem/bin/idea.sh > /dev/null 2>&1 &"
 
 function cde(){
     echo "openning Desktop/projects/$1 with vsCode"
     if [ "$1" != "" ]
     then
-    /usr/bin/prime-run code ~/Desktop/projects/"$1"
+    code ~/Desktop/projects/"$1"
     else
-    /usr/bin/prime-run ~/Desktop/projects/
+    code ~/Desktop/projects/
+    fi
+}
+function i(){
+    echo "openning Desktop/projects/$1 with idea"
+    if [ "$1" != "" ]
+    then
+    nohup nohup ~/idea-prem/bin/idea.sh ~/Desktop/projects/"$1" > /dev/null 2>&1 &
+    else
+    nohup nohup ~/idea-prem/bin/idea.sh ~/Desktop/projects/ > /dev/null 2>&1 &
     fi
 }
 
@@ -158,6 +168,7 @@ _cde_completion() {
 }
 
 compdef _cde_completion cde
+compdef _cde_completion i
 
 function dod() {
   echo "$1"
@@ -203,7 +214,7 @@ alias idiot="shutdown -r now"
 alias pp="terminal-parrot"
 alias clr="clear"
 alias dfoff="docker rm \$(docker stop \$(docker container ls -qa))"
-alias nekoray="nohup /home/lou2013/tools/nekoray/launcher > /dev/null 2>&1 &"
+alias nekoray="nohup /home/iman/nekoray/launcher > /dev/null 2>&1 &"
 # alias nekoray="/home/lou2013/Downloads/nekoray/launcher"
 alias gsi='git submodule foreach "pnpm i"'
 alias gsu="git submodule update --init --recursive"
@@ -235,7 +246,7 @@ zstyle ':vcs_info:git:*' formats '%b '
 setopt PROMPT_SUBST
 PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 # anime-colorscripts -r source /home/lou2013/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+# source ~/powerlevel10kdf/powerlevel10k.zsh-theme
 export BROWSER='/usr/bin/google-chrome-stable'
 # Created by fodev.org
 function fod(){
@@ -287,7 +298,8 @@ if command -v pyenv >/dev/null 2>&1; then
 fi
 # eval "$(pyenv init --path)"
 # eval "$(pyenv virtualenv-init -)"
-
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+export PATH=$JAVA_HOME/bin:$PATH
 # Other configurations
-source /home/lou2013/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/nvm/init-nvm.sh
+# source /home/iman/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
